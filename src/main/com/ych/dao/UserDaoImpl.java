@@ -43,4 +43,24 @@ public class UserDaoImpl implements IUserDao {
     public int update(User user) {
         return JdbcUtil.executeUpdate("update user set username=?,password=?,email=?,lv=? where id=?",user.getUsername(),user.getPassword(),user.getEmail(),user.getLv(),user.getId());
     }
+
+    @Override
+    public User getOne(int id) {
+        return JdbcUtil.queryOne("select * from user where id = ?", new RowMap<User>() {
+            @Override
+            public User RowMapping(ResultSet rs) {
+                User u = new User();
+                try {
+                    u.setId(rs.getInt("id"));
+                    u.setUsername(rs.getString("username"));
+                    u.setPassword(rs.getString("password"));
+                    u.setEmail(rs.getString("email"));
+                    u.setLv(rs.getInt("lv"));
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                return u;
+            }
+        }, id);
+    }
 }

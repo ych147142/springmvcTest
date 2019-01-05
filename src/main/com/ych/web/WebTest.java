@@ -3,6 +3,7 @@ package com.ych.web;
 import com.ych.pojo.User;
 import com.ych.service.IUserService;
 import com.ych.service.UserServiceImpl;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Controller
 public class WebTest {
+
     IUserService service = new UserServiceImpl();
     @RequestMapping("/a.do")
     public String web(Model m){
@@ -23,8 +25,31 @@ public class WebTest {
 
     }
     @RequestMapping("/b.do")
-    public String test(String user,String pwd){
-        System.out.println(user+"  " + pwd);
-        return "";
+    public String test(){
+
+        return "b";
     }
+
+    @RequestMapping("/add.do")
+    public String add(User user){
+        service.insert(user);
+        return "redirect:a.do";
+    }
+    @RequestMapping("/delete.do")
+    public String delete(int id){
+        service.delete(id);
+        return "redirect:a.do";
+    }
+    @RequestMapping("/update.do")
+    public String update(ModelMap map,int id){
+        User u = service.getOne(id);
+        map.addAttribute("u",u);
+        return "update";
+    }
+    @RequestMapping("/doupdate.do")
+    public String doupdate(User user){
+        service.update(user);
+        return "redirect:a.do";
+    }
+
 }

@@ -9,4 +9,6 @@ public interface IUserService {
     public int delete(int id);
     public int insert(User user);
     public int update(User user);
+    public User getOne(int id);
+
 }

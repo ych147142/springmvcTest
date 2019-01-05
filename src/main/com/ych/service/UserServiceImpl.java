@@ -27,4 +27,9 @@ public class UserServiceImpl implements IUserService {
     public int update(User user) {
         return dao.update(user);
     }
+
+    @Override
+    public User getOne(int id) {
+        return dao.getOne(id);
+    }
 }

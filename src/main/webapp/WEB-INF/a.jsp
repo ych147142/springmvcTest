@@ -20,6 +20,7 @@
         <th>密码</th>
         <th>邮箱</th>
         <th>等级</th>
+        <th>操作</th>
     </tr>
     </thead>
     <tbody>
@@ -30,10 +31,14 @@
             <td>${u.password}</td>
             <td>${u.email}</td>
             <td>${u.lv}</td>
+            <td><a href="delete.do?id=${u.id}">删除</a>|<a href="update.do?id=${u.id}">修改</a> </td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
+<form action="b.do" method="post">
+    <input type="submit" value="添加">
+</form>
 
 </body>
 </html>
